@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Film Seçici</title>
+    <style>
+        body {
+            background-image: url(./9987277.jpg);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            flex-direction: column;
+            display: flex;
+            justify-content: start;
+            align-items: center;
+        }
+        .wrapper {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+        .container {
+            color: white;
+            backdrop-filter: blur(18px);
+            background-color: #18053a;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgb(12, 12, 12);
+            text-align: center;
+            width: 400px;
+            height: 250px;
+            margin-top: 100px;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        button {
+            box-shadow: 0 0 10px rgb(253, 253, 253);
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #561b8d;
+            color: #fff;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+       
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .list-container {
+            color: rgb(255, 255, 255);
+            backdrop-filter: blur(18px);
+            background-color: #18053a;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgb(0, 0, 0);
+            text-align: center;
+            width: 400px;
+            font-size: 14px;
+            max-height: 400px;
+            overflow-y: auto;
+            margin-top: 100px;
+        }
+        .list-container h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        .list-container ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: left;
+        }
+        .list-container ul li {
+            padding: 5px;
+            border-radius: 5px;
+            color: white;
+            background: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <h1>Film Seçici</h1>
+            <button onclick="selectMovie()">Film Seç</button>
+            <div id="result"></div>
+        </div>
+        <div class="list-container">
+            <h2>İzlediğimiz Filmler</h2>
+            <ul id="watchedList"></ul>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+    <script>
+        const initialMovies = [
+            "Dune Series",
+            "The Blind Side",
+            "Se7en",
+            "Guardian Of Galaxy Series",
+            "Smile 2",
+            "The Wolf Of Wall Street",
+            "Harry Potter Series",
+            "Dark Knight Series",
+            "Meet Joe Black",
+            "Uncharted",
+            "Brothers",
+            "The Devil's Advocate"
+        ];
+
+        let movies = JSON.parse(localStorage.getItem('movies')) || initialMovies;
+        let watchedMovies = JSON.parse(localStorage.getItem('watchedMovies')) || [];
+
+        const resultDiv = document.getElementById('result');
+        const watchedList = document.getElementById('watchedList');
+
+        function loadWatchedMovies() {
+            watchedList.innerHTML = watchedMovies.map(movie => `<li>${movie}</li>`).join('');
+        }
+
+        function selectMovie() {
+            if (movies.length === 0) {
+                resultDiv.textContent = "Tüm filmleri izledik :D";
+                return;
+            }
+            const randomIndex = Math.floor(Math.random() * movies.length);
+            const selectedMovie = movies[randomIndex];
+
+            resultDiv.textContent = `Şansımıza ${selectedMovie} geldi :D`;
+
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+
+            watchedMovies.push(selectedMovie);
+            localStorage.setItem('watchedMovies', JSON.stringify(watchedMovies));
+
+            movies.splice(randomIndex, 1);
+            localStorage.setItem('movies', JSON.stringify(movies));
+            loadWatchedMovies();
+        }
+
+        loadWatchedMovies();
+    </script>
+</body>
+</html>
