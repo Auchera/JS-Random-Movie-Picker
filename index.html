@@ -103,7 +103,7 @@
     </div>
   </div>
 
-  <!-- Confetti kütüphanesi -->
+
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
   <script>
     const initialMovies = [
@@ -121,7 +121,7 @@
       "Apocalypto",
       "No Exit",
       "I Am Sam",
-      "Sully Plan,e Landing",
+      "Sully Plane Landing",
       "Taken",
       "Zodiac",
       "Leave the World Behind",
@@ -144,7 +144,7 @@
       watchedList.innerHTML = watchedMovies.map(movie => `<li>${movie}</li>`).join('');
     }
 
-    // Ortadan havai fişek patlaması
+
     function centerFirework() {
       confetti({
         particleCount: 500,
@@ -154,9 +154,8 @@
       });
     }
 
-    // Sağ ve sol taraftan konfeti yağmuru
     function sideRain() {
-      // Sol taraftan
+    
       confetti({
         particleCount: 300,
         angle: 60,
@@ -165,7 +164,7 @@
         gravity: 1,
         origin: { x: 0, y: 0.75 }
       });
-      // Sağ taraftan
+
       confetti({
         particleCount: 300,
         angle: 120,
@@ -176,16 +175,16 @@
       });
     }
 
-    // Üst sol ve üst sağ köşelerde havai fişek patlaması
+
     function cornerFireworks() {
-      // Üst sol köşe
+
       confetti({
         particleCount: 200,
         spread: 100,
         startVelocity: 50,
         origin: { x: 0, y: 0 }
       });
-      // Üst sağ köşe
+   
       confetti({
         particleCount: 200,
         spread: 100,
@@ -194,7 +193,6 @@
       });
     }
 
-    // Tüm efektleri bir arada çalıştıran fonksiyon
     function startConfetti() {
       centerFirework();
       sideRain();
@@ -211,7 +209,7 @@
 
       resultDiv.textContent = `Şansımıza ${selectedMovie} geldi :D`;
 
-      // Konfeti efektlerini başlatıyoruz
+
       startConfetti();
 
       watchedMovies.push(selectedMovie);
